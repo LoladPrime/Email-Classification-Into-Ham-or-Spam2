@@ -1,18 +1,28 @@
 import streamlit as st
 import numpy as np
-import pickle
+#import pickle
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.preprocessing.text import Tokenizer
 
 # Load the model and tokenizer
 model = load_model('cnn_lstm.h5')
 
-with open('tokenizer.pickle', 'rb') as handle:
-    tokenizer = pickle.load(handle)
+#with open('tokenizer.pickle', 'rb') as handle:
+#    tokenizer = pickle.load(handle)
+
+
+# Load or define the tokenizer
+# Ensure you have the same tokenizer used for training
+#tokenizer = Tokenizer(num_words=max_words)
+#tokenizer.fit_on_texts(training_texts)  # or load from a saved tokenizer if you saved it
+
 
 # Function to preprocess the input text
 def preprocess_input(text):
     # Tokenize and pad the input text
+    tokenizer = Tokenizer(num_words=150)
+    tokenizer.fit_on_texts([text])  # or load from a saved tokenizer if you saved it
     sequences = tokenizer.texts_to_sequences([text])
     padded_sequences = pad_sequences(sequences, maxlen=150)  # Adjust maxlen as needed
     return padded_sequences
