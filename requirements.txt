@@ -1,4 +1,4 @@
 tensorflow==2.17.0
 streamlit==1.22.0
 numpy==1.26.0
-pickle5==0.0.11
+pickle5==0.0.11 --only-binary :all:
